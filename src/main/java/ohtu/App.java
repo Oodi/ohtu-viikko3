@@ -15,7 +15,7 @@ public class App {
 
     private IO io;
     private AuthenticationService auth;
-    
+
     @Autowired
     public App(IO io, AuthenticationService auth) {
         this.io = io;
@@ -32,28 +32,30 @@ public class App {
     public void run() {
         while (true) {
             String command = io.readLine(">");
-
-            if (command.isEmpty()) {
-                break;
-            }
-
+            if (command.isEmpty()) break;         
             if (command.equals("new")) {
-                String[] usernameAndPasword = ask();
-                if (auth.createUser(usernameAndPasword[0], usernameAndPasword[1])) {
-                    io.print("new user registered");
-                } else {
-                    io.print("new user not registered");
-                }
-
+                newUser();
             } else if (command.equals("login")) {
-                String[] usernameAndPasword = ask();
-                if (auth.logIn(usernameAndPasword[0], usernameAndPasword[1])) {
-                    io.print("logged in");
-                } else {
-                    io.print("wrong username or password");
-                }
+                login();
             }
+        }
+    }
 
+    private void newUser() {
+        String[] usernameAndPasword = ask();
+        if (auth.createUser(usernameAndPasword[0], usernameAndPasword[1])) {
+            io.print("new user registered");
+        } else {
+            io.print("new user not registered");
+        }
+    }
+
+    private void login() {
+        String[] usernameAndPasword = ask();
+        if (auth.logIn(usernameAndPasword[0], usernameAndPasword[1])) {
+            io.print("logged in");
+        } else {
+            io.print("wrong username or password");
         }
     }
 
