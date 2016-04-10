@@ -32,12 +32,18 @@ public class App {
     public void run() {
         while (true) {
             String command = io.readLine(">");
-            if (command.isEmpty()) break;         
-            if (command.equals("new")) {
-                newUser();
-            } else if (command.equals("login")) {
-                login();
+            if (command.isEmpty()) {
+                break;
             }
+            command(command);
+        }
+    }
+
+    private void command(String command) {
+        if (command.equals("new")) {
+            newUser();
+        } else if (command.equals("login")) {
+            login();
         }
     }
 
